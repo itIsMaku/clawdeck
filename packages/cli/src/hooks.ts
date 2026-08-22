@@ -62,12 +62,13 @@ function quote(value: string): string {
   return `'${value.replaceAll("'", `'\\''`)}'`;
 }
 
-function command(paths: ClawdeckPaths, agent: string, state: AgentState): string {
-  return `${quote(process.execPath)} ${quote(paths.runner)} --source com.volkm.clawdeck --file ${quote(paths.state)} --agent ${agent} --state ${state}`;
+function command(paths: ClawdeckPaths, agent: string, state: AgentState, watchCodex = false): string {
+  const watch = watchCodex ? " --watch-codex" : "";
+  return `${quote(process.execPath)} ${quote(paths.runner)} --source com.volkm.clawdeck --file ${quote(paths.state)} --agent ${agent} --state ${state}${watch}`;
 }
 
-function handler(paths: ClawdeckPaths, agent: string, state: AgentState): HookGroup {
-  return { hooks: [{ type: "command", command: command(paths, agent, state), timeout: 3 }] };
+function handler(paths: ClawdeckPaths, agent: string, state: AgentState, watchCodex = false): HookGroup {
+  return { hooks: [{ type: "command", command: command(paths, agent, state, watchCodex), timeout: 3 }] };
 }
 
 function matcherHandler(paths: ClawdeckPaths, agent: string, state: AgentState, matcher: string): HookGroup {
@@ -98,7 +99,7 @@ function append(hooks: HooksMap, additions: HooksMap): HooksMap {
 function codexHooks(paths: ClawdeckPaths): HooksMap {
   return {
     SessionStart: [handler(paths, "codex", "ready")],
-    UserPromptSubmit: [handler(paths, "codex", "working")],
+    UserPromptSubmit: [handler(paths, "codex", "working", true)],
     PreToolUse: [handler(paths, "codex", "working")],
     PermissionRequest: [handler(paths, "codex", "permission")],
     Stop: [handler(paths, "codex", "ready")],

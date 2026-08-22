@@ -1,6 +1,6 @@
 {
   "name": "@clawdeck/streamdeck-plugin",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "private": true,
   "type": "module",
   "scripts": {
@@ -13,7 +13,7 @@
     "clean": "node ../../scripts/clean.mjs plugin"
   },
   "dependencies": {
-    "@clawdeck/protocol": "0.1.3",
+    "@clawdeck/protocol": "0.1.4",
     "@elgato/streamdeck": "^2.1.2"
   },
   "devDependencies": {

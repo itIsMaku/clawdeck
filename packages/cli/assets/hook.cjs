@@ -3,6 +3,7 @@
 
 const fs = require("node:fs");
 const path = require("node:path");
+const { spawn } = require("node:child_process");
 
 const VALID_STATES = new Set(["working", "ready", "permission", "error", "offline"]);
 
@@ -49,15 +50,7 @@ async function acquireLock(file) {
   throw new Error("Timed out waiting for the Clawdeck state lock");
 }
 
-async function main() {
-  const file = arg("file");
-  const agent = arg("agent", "unknown");
-  const nextState = arg("state", "ready");
-  const clear = process.argv.includes("--clear");
-  if (!file || !VALID_STATES.has(nextState)) process.exit(0);
-
-  const input = await readStdin();
-  const sessionId = String(input.session_id || input.thread_id || `${agent}-default`);
+async function writeState(file, agent, nextState, sessionId, clear, notAfter) {
   const key = `${agent}:${sessionId}`;
   fs.mkdirSync(path.dirname(file), { recursive: true });
   const releaseLock = await acquireLock(file);
@@ -69,7 +62,11 @@ async function main() {
       if (current && current.version === 1 && current.sessions) snapshot = current;
     } catch {}
 
-    if (clear) {
+    if (notAfter) {
+      const current = snapshot.sessions[key];
+      if (current?.state !== "working" || Date.parse(current.updatedAt) > Date.parse(notAfter)) return;
+      snapshot.sessions[key] = { ...current, state: nextState, updatedAt: new Date().toISOString() };
+    } else if (clear) {
       snapshot.sessions = {};
     } else if (nextState === "offline") {
       delete snapshot.sessions[key];
@@ -96,6 +93,98 @@ async function main() {
     fs.renameSync(temporary, file);
   } finally {
     releaseLock();
+  }
+}
+
+function lifecycleEvent(line) {
+  try {
+    const value = JSON.parse(line);
+    if (value?.type !== "event_msg") return;
+    const type = value.payload?.type;
+    if (type !== "turn_aborted" && type !== "task_complete") return;
+    return value.payload?.completed_at || value.timestamp || new Date().toISOString();
+  } catch {}
+}
+
+async function watchTranscript(file, transcript, sessionId, offset) {
+  let position = Number(offset) || 0;
+  let remainder = "";
+  const deadline = Date.now() + 24 * 60 * 60 * 1000;
+  while (Date.now() < deadline) {
+    try {
+      const size = fs.statSync(transcript).size;
+      if (size < position) {
+        position = 0;
+        remainder = "";
+      }
+      if (size > position) {
+        const length = size - position;
+        const descriptor = fs.openSync(transcript, "r");
+        const buffer = Buffer.alloc(length);
+        fs.readSync(descriptor, buffer, 0, length, position);
+        fs.closeSync(descriptor);
+        position = size;
+        const lines = `${remainder}${buffer.toString("utf8")}`.split("\n");
+        remainder = lines.pop() || "";
+        for (const line of lines) {
+          const completedAt = lifecycleEvent(line);
+          if (completedAt) {
+            await writeState(file, "codex", "ready", sessionId, false, completedAt);
+            return;
+          }
+        }
+      }
+    } catch (error) {
+      if (error.code !== "ENOENT") return;
+    }
+    await sleep(150);
+  }
+}
+
+async function main() {
+  const file = arg("file");
+  const agent = arg("agent", "unknown");
+  const nextState = arg("state", "ready");
+  if (!file || !VALID_STATES.has(nextState)) process.exit(0);
+
+  if (process.argv.includes("--watch-transcript")) {
+    await watchTranscript(file, arg("transcript"), arg("session"), arg("offset", "0"));
+    return;
+  }
+
+  const input = await readStdin();
+  const sessionId = String(input.session_id || input.thread_id || `${agent}-default`);
+  const transcript = typeof input.transcript_path === "string" ? input.transcript_path : undefined;
+  let offset = 0;
+  if (transcript) {
+    try {
+      offset = fs.statSync(transcript).size;
+    } catch {}
+  }
+  await writeState(file, agent, nextState, sessionId, process.argv.includes("--clear"));
+
+  if (process.argv.includes("--watch-codex") && agent === "codex" && nextState === "working" && transcript) {
+    const child = spawn(
+      process.execPath,
+      [
+        __filename,
+        "--file",
+        file,
+        "--agent",
+        "codex",
+        "--state",
+        "ready",
+        "--watch-transcript",
+        "--transcript",
+        transcript,
+        "--session",
+        sessionId,
+        "--offset",
+        String(offset),
+      ],
+      { detached: true, stdio: "ignore" },
+    );
+    child.unref();
   }
 }
 

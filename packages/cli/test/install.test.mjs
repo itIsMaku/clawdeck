@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { execFile, execFileSync, spawnSync } from "node:child_process";
 import {
+  appendFileSync,
   existsSync,
   lstatSync,
   mkdirSync,
@@ -114,6 +115,44 @@ test("standalone runner preserves concurrent sessions", async () => {
     );
     const snapshot = JSON.parse(readFileSync(state, "utf8"));
     assert.equal(Object.keys(snapshot.sessions).length, 16);
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
+});
+
+test("Codex transcript watcher clears working after an interrupted turn", async () => {
+  const root = mkdtempSync(join(tmpdir(), "clawdeck-interrupt-"));
+  const state = join(root, "state.json");
+  const transcript = join(root, "rollout.jsonl");
+  const runner = resolve("dist/assets/hook.cjs");
+  writeFileSync(transcript, '{"type":"event_msg","payload":{"type":"task_started"}}\n');
+
+  try {
+    const child = execFile(process.execPath, [
+      runner,
+      "--file",
+      state,
+      "--agent",
+      "codex",
+      "--state",
+      "working",
+      "--watch-codex",
+    ]);
+    child.stdin.end(JSON.stringify({ session_id: "interrupted", transcript_path: transcript }));
+    await new Promise((resolvePromise, reject) =>
+      child.once("exit", (code) => (code === 0 ? resolvePromise() : reject(new Error(`hook exited ${code}`)))),
+    );
+    assert.equal(JSON.parse(readFileSync(state, "utf8")).state, "working");
+
+    appendFileSync(
+      transcript,
+      `${JSON.stringify({ timestamp: new Date().toISOString(), type: "event_msg", payload: { type: "turn_aborted", completed_at: new Date().toISOString() } })}\n`,
+    );
+    const deadline = Date.now() + 3_000;
+    while (JSON.parse(readFileSync(state, "utf8")).state !== "ready" && Date.now() < deadline) {
+      await new Promise((resolvePromise) => setTimeout(resolvePromise, 50));
+    }
+    assert.equal(JSON.parse(readFileSync(state, "utf8")).state, "ready");
   } finally {
     rmSync(root, { recursive: true, force: true });
   }

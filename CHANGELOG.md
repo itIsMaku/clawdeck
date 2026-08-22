@@ -4,6 +4,10 @@ All notable changes follow [Keep a Changelog](https://keepachangelog.com/en/1.1.
 
 ## [Unreleased]
 
+## [0.1.4] - 2026-08-22
+
+- Recover the Codex status after an interrupted turn (`Escape`) by watching lifecycle metadata for `turn_aborted` without reading or storing conversation content.
+
 ## [0.1.3] - 2026-08-22
 
 ### Fixed

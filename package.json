@@ -1,6 +1,6 @@
 {
   "name": "clawdeck-monorepo",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "private": true,
   "description": "Agent status lights for Elgato Stream Deck",
   "author": "volkm",
