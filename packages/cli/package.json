@@ -1,15 +1,15 @@
 {
-  "name": "@volkm/clawdeck",
+  "name": "@itismaku/clawdeck",
   "version": "0.1.4",
   "description": "Connect Codex and Claude Code lifecycle events to an Elgato Stream Deck",
-  "author": "volkm",
+  "author": "itismaku",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/volkm/clawdeck.git"
+    "url": "git+https://github.com/itIsMaku/clawdeck.git"
   },
-  "homepage": "https://github.com/volkm/clawdeck#readme",
+  "homepage": "https://github.com/itIsMaku/clawdeck#readme",
   "bugs": {
-    "url": "https://github.com/volkm/clawdeck/issues"
+    "url": "https://github.com/itIsMaku/clawdeck/issues"
   },
   "keywords": [
     "stream-deck",

@@ -30,7 +30,7 @@ Requires Stream Deck 7.1 or newer on Windows 10+ or macOS 13+, plus Node.js 20.5
 The intended release flow is one command:
 
 ```bash
-npx @volkm/clawdeck install
+npx @itismaku/clawdeck install
 ```
 
 The CLI merges lifecycle handlers into `~/.codex/hooks.json` and `~/.claude/settings.json`, preserving existing settings and writing `.clawdeck-backup` files before changes. It then opens the bundled `Clawdeck.streamDeckPlugin` installer. Codex requires one explicit trust review for newly installed user hooks; run `/hooks` in Codex after installation.
@@ -60,8 +60,8 @@ clawdeck uninstall
 Install only one agent integration when desired:
 
 ```bash
-npx @volkm/clawdeck install --no-claude
-npx @volkm/clawdeck install --no-codex
+npx @itismaku/clawdeck install --no-claude
+npx @itismaku/clawdeck install --no-codex
 ```
 
 `uninstall` removes only Clawdeck hook handlers and leaves unrelated hooks, the Stream Deck plugin, backups, and state history untouched.
@@ -113,12 +113,12 @@ node packages/cli/dist/cli.js install --no-streamdeck
 
 ## Release artifacts
 
-`npm pack -w @volkm/clawdeck` runs the plugin validator/packer, vendors the resulting `.streamDeckPlugin`, builds the standalone CLI, and creates an npm tarball containing both pieces. The CLI is bundled, so users do not need the private workspace packages.
+`npm pack -w @itismaku/clawdeck` runs the plugin validator/packer, vendors the resulting `.streamDeckPlugin`, builds the standalone CLI, and creates an npm tarball containing both pieces. The CLI is bundled, so users do not need the private workspace packages.
 
 Publish the scoped public package after authenticating with npm:
 
 ```bash
-npm publish -w @volkm/clawdeck
+npm publish -w @itismaku/clawdeck
 ```
 
 ## Architecture

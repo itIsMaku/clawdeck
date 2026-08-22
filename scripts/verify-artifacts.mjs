@@ -3,7 +3,7 @@ import { join } from "node:path";
 import { gunzipSync } from "node:zlib";
 
 const packageVersion = JSON.parse(readFileSync("package.json", "utf8")).version;
-const tarball = join("dist", `volkm-clawdeck-${packageVersion}.tgz`);
+const tarball = join("dist", `itismaku-clawdeck-${packageVersion}.tgz`);
 const archive = gunzipSync(readFileSync(tarball));
 const files = new Set();
 

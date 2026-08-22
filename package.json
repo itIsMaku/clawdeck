@@ -3,21 +3,21 @@
   "version": "0.1.4",
   "private": true,
   "description": "Agent status lights for Elgato Stream Deck",
-  "author": "volkm",
+  "author": "itismaku",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/volkm/clawdeck.git"
+    "url": "git+https://github.com/itIsMaku/clawdeck.git"
   },
-  "homepage": "https://github.com/volkm/clawdeck#readme",
+  "homepage": "https://github.com/itIsMaku/clawdeck#readme",
   "bugs": {
-    "url": "https://github.com/volkm/clawdeck/issues"
+    "url": "https://github.com/itIsMaku/clawdeck/issues"
   },
   "workspaces": [
     "packages/*"
   ],
   "scripts": {
     "assets": "node scripts/generate-assets.mjs",
-    "build": "npm run build -w @clawdeck/protocol && npm run build -w @volkm/clawdeck && npm run build -w @clawdeck/streamdeck-plugin",
+    "build": "npm run build -w @clawdeck/protocol && npm run build -w @itismaku/clawdeck && npm run build -w @clawdeck/streamdeck-plugin",
     "check": "npm run check --workspaces --if-present",
     "lint": "biome check .",
     "format": "biome format --write .",
