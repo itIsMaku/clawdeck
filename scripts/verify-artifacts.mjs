@@ -32,7 +32,7 @@ const required = [
 const missing = required.filter((file) => !files.has(file));
 if (missing.length > 0) throw new Error(`npm artifact is missing: ${missing.join(", ")}`);
 
-const plugin = readFileSync(join("dist", "com.volkm.clawdeck.streamDeckPlugin"));
+const plugin = readFileSync(join("dist", "com.itismaku.clawdeck.streamDeckPlugin"));
 if (plugin[0] !== 0x50 || plugin[1] !== 0x4b) throw new Error("Stream Deck artifact is not a ZIP package");
 
 console.log(`Verified ${required.length} required npm files and the Stream Deck package envelope.`);

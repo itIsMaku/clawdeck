@@ -55,7 +55,7 @@ export function resolvePaths(env: NodeJS.ProcessEnv = process.env, discoverStrea
 
   let streamDeckPlugin: string | undefined;
   if (discoverStreamDeck && process.platform === "win32" && env.APPDATA) {
-    streamDeckPlugin = join(env.APPDATA, "Elgato", "StreamDeck", "Plugins", "com.volkm.clawdeck.sdPlugin");
+    streamDeckPlugin = join(env.APPDATA, "Elgato", "StreamDeck", "Plugins", "com.itismaku.clawdeck.sdPlugin");
   } else if (discoverStreamDeck && process.platform === "darwin") {
     streamDeckPlugin = join(
       homedir(),
@@ -63,12 +63,12 @@ export function resolvePaths(env: NodeJS.ProcessEnv = process.env, discoverStrea
       "Application Support",
       "com.elgato.StreamDeck",
       "Plugins",
-      "com.volkm.clawdeck.sdPlugin",
+      "com.itismaku.clawdeck.sdPlugin",
     );
   } else if (discoverStreamDeck) {
     const windowsRoaming = windowsKnownFolderFromWsl("ApplicationData");
     if (windowsRoaming) {
-      streamDeckPlugin = join(windowsRoaming, "Elgato", "StreamDeck", "Plugins", "com.volkm.clawdeck.sdPlugin");
+      streamDeckPlugin = join(windowsRoaming, "Elgato", "StreamDeck", "Plugins", "com.itismaku.clawdeck.sdPlugin");
     }
   }
 

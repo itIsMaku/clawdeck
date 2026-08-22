@@ -31,7 +31,14 @@ test("install preserves existing hooks, emits state, and uninstalls only Clawdec
     type: "command",
     command: "node /some-other-tool/hook.cjs --agent codex --state ready",
   };
-  writeFileSync(join(codex, "hooks.json"), JSON.stringify({ hooks: { Stop: [{ hooks: [existing, similar] }] } }));
+  const legacy = {
+    type: "command",
+    command: "node /old-clawdeck/hook.cjs --source com.volkm.clawdeck --agent codex --state ready",
+  };
+  writeFileSync(
+    join(codex, "hooks.json"),
+    JSON.stringify({ hooks: { Stop: [{ hooks: [existing, similar, legacy] }] } }),
+  );
   writeFileSync(
     join(claude, "settings.json"),
     JSON.stringify({ theme: "dark", hooks: { Stop: [{ hooks: [existing] }] } }),
@@ -52,19 +59,20 @@ test("install preserves existing hooks, emits state, and uninstalls only Clawdec
     assert.match(JSON.stringify(codexInstalled), /hook\.cjs/);
     assert.match(JSON.stringify(codexInstalled), /keep-me/);
     assert.match(JSON.stringify(codexInstalled), /some-other-tool/);
+    assert.doesNotMatch(JSON.stringify(codexInstalled), /com\.volkm\.clawdeck/);
     assert.equal(claudeInstalled.theme, "dark");
     assert.match(JSON.stringify(claudeInstalled), /permission_prompt/);
 
     execFileSync(process.execPath, [cli, "install", "--no-streamdeck"], { env });
     const codexReinstalled = readFileSync(join(codex, "hooks.json"), "utf8");
     assert.equal(
-      codexReinstalled.match(/--source com\.volkm\.clawdeck/g)?.length,
+      codexReinstalled.match(/--source com\.itismaku\.clawdeck/g)?.length,
       6,
       "reinstall must not duplicate handlers",
     );
     assert.doesNotMatch(
       readFileSync(join(codex, "hooks.json.clawdeck-backup"), "utf8"),
-      /--source com\.volkm\.clawdeck/,
+      /--source com\.itismaku\.clawdeck/,
       "reinstall must preserve the pre-Clawdeck backup",
     );
 
@@ -83,10 +91,10 @@ test("install preserves existing hooks, emits state, and uninstalls only Clawdec
     assert.deepEqual(resetSnapshot.sessions, {});
 
     execFileSync(process.execPath, [cli, "uninstall"], { env });
-    assert.doesNotMatch(readFileSync(join(codex, "hooks.json"), "utf8"), /--source com\.volkm\.clawdeck/);
+    assert.doesNotMatch(readFileSync(join(codex, "hooks.json"), "utf8"), /--source com\.itismaku\.clawdeck/);
     assert.match(readFileSync(join(codex, "hooks.json"), "utf8"), /keep-me/);
     assert.match(readFileSync(join(codex, "hooks.json"), "utf8"), /some-other-tool/);
-    assert.doesNotMatch(readFileSync(join(claude, "settings.json"), "utf8"), /--source com\.volkm\.clawdeck/);
+    assert.doesNotMatch(readFileSync(join(claude, "settings.json"), "utf8"), /--source com\.itismaku\.clawdeck/);
   } finally {
     rmSync(root, { recursive: true, force: true });
   }

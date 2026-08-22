@@ -13,4 +13,4 @@ execFileSync(npm, ["run", "pack", "-w", "@clawdeck/streamdeck-plugin"], {
 
 const vendor = join(root, "packages", "cli", "vendor");
 mkdirSync(vendor, { recursive: true });
-copyFileSync(join(root, "dist", "com.volkm.clawdeck.streamDeckPlugin"), join(vendor, "Clawdeck.streamDeckPlugin"));
+copyFileSync(join(root, "dist", "com.itismaku.clawdeck.streamDeckPlugin"), join(vendor, "Clawdeck.streamDeckPlugin"));

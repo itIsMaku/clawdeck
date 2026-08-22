@@ -7,8 +7,8 @@ const targets = {
   cli: [join(root, "packages", "cli", "dist")],
   protocol: [join(root, "packages", "protocol", "dist")],
   plugin: [
-    join(root, "packages", "streamdeck-plugin", "com.volkm.clawdeck.sdPlugin", "bin"),
-    join(root, "dist", "com.volkm.clawdeck.streamDeckPlugin"),
+    join(root, "packages", "streamdeck-plugin", "com.itismaku.clawdeck.sdPlugin", "bin"),
+    join(root, "dist", "com.itismaku.clawdeck.streamDeckPlugin"),
   ],
 };
 const selection = process.argv[2];

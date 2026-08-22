@@ -3,7 +3,7 @@ import { fileURLToPath } from "node:url";
 import sharp from "sharp";
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
-const images = join(root, "packages", "streamdeck-plugin", "com.volkm.clawdeck.sdPlugin", "imgs");
+const images = join(root, "packages", "streamdeck-plugin", "com.itismaku.clawdeck.sdPlugin", "imgs");
 const source = join(images, "plugin-source.svg");
 
 await sharp(source).resize(256, 256).png().toFile(join(images, "plugin.png"));
