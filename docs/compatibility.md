@@ -15,6 +15,8 @@ The CI matrix runs on Linux, Windows, and macOS. WSL uses the Windows `%LOCALAPP
 
 `clawdeck doctor` resolves the corresponding native Stream Deck plugin directory, including the Windows roaming profile from WSL, and reports whether Clawdeck is installed there. Platform discovery is lazy and never runs in latency-sensitive lifecycle hook commands.
 
+Release 0.1.2 was additionally verified end-to-end on physical six-key Stream Deck hardware with Stream Deck 7.1.1: all six mosaic actions loaded, the native plugin runtime completed its SDK handshake, and working, ready, permission, and offline snapshots were delivered without a plugin restart.
+
 ## Lifecycle contract
 
 Codex maps `SessionStart` and completed turns to ready, `UserPromptSubmit` and tool execution to working, `PermissionRequest` to permission, and `SessionEnd` to offline. Claude Code uses the equivalent lifecycle events and additionally maps `StopFailure` to error and relevant `Notification` matchers to ready or permission.

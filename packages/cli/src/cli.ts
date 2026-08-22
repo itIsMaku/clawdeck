@@ -7,7 +7,7 @@ import { hasClawdeckHook, installHooks, uninstallHooks } from "./hooks.js";
 import { commandExists, resolvePaths } from "./paths.js";
 import { openPluginInstaller } from "./plugin.js";
 
-const VERSION = "0.1.0";
+const VERSION = "0.1.2";
 const here = dirname(fileURLToPath(import.meta.url));
 
 function asset(name: string): string {

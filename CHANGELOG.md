@@ -4,6 +4,20 @@ All notable changes follow [Keep a Changelog](https://keepachangelog.com/en/1.1.
 
 ## [Unreleased]
 
+## [0.1.2] - 2026-08-22
+
+### Fixed
+
+- Provide an ESM `createRequire` shim for bundled CommonJS dependencies used by the official Stream Deck SDK.
+- Cold-start the final plugin bundle during every build to catch failures that syntax parsing alone cannot detect.
+
+## [0.1.1] - 2026-08-22
+
+### Fixed
+
+- Transpile standard decorators in the production Stream Deck bundle instead of shipping syntax unsupported by the embedded Node runtime.
+- Parse-check the final plugin bundle during every build so this class of startup failure cannot pass CI again.
+
 ## [0.1.0] - 2026-08-22
 
 ### Added
@@ -20,3 +34,4 @@ All notable changes follow [Keep a Changelog](https://keepachangelog.com/en/1.1.
 - Interactive browser simulator backed by the production mosaic renderer.
 - Transactional hook installation with rollback of configs, runner, backups, and temporary files after late failures.
 - Stream Deck plugin installation detection on native Windows, macOS, and Windows-through-WSL diagnostics.
+- Production bundle syntax verification and explicit legacy decorator transpilation for the Stream Deck Node runtime.
