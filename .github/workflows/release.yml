@@ -25,9 +25,9 @@ jobs:
       - run: npm run check
       - run: npm run lint
       - run: npm test
-      - run: mkdir -p dist && npm pack -w @volkm/clawdeck --pack-destination dist
+      - run: mkdir -p dist && npm pack -w @itismaku/clawdeck --pack-destination dist
       - run: npm run release:verify-artifacts
-      - run: npm publish -w @volkm/clawdeck --provenance
+      - run: npm publish -w @itismaku/clawdeck --provenance
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Create GitHub release

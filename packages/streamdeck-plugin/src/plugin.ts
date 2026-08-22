@@ -29,7 +29,7 @@ function normalizeSettings(settings: TileSettings): Required<TileSettings> {
   };
 }
 
-@action({ UUID: "com.volkm.clawdeck.status-tile" })
+@action({ UUID: "com.itismaku.clawdeck.status-tile" })
 class StatusTile extends SingletonAction<TileSettings> {
   private readonly visible = new Map<string, VisibleTile>();
   private snapshot: ClawdeckSnapshot = offlineSnapshot();
