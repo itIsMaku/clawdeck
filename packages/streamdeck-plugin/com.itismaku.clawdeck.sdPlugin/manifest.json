@@ -3,7 +3,7 @@
   "UUID": "com.itismaku.clawdeck",
   "Name": "Clawdeck",
   "Version": "0.1.4.0",
-  "Author": "Clawdeck",
+  "Author": "itismaku",
   "Description": "Shows when Codex and Claude Code are working or waiting for you.",
   "Category": "Clawdeck",
   "CategoryIcon": "imgs/category",
