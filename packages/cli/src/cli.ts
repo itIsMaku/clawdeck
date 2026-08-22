@@ -157,7 +157,7 @@ function install(): void {
 }
 
 function doctor(): void {
-  const paths = resolvePaths();
+  const paths = resolvePaths(process.env, true);
   const [major, minor, patch] = process.versions.node.split(".").map(Number);
   const nodeSupported = major > 20 || (major === 20 && (minor > 5 || (minor === 5 && patch >= 1)));
   const checks = [
@@ -173,6 +173,11 @@ function doctor(): void {
     },
     { label: "Hook runner", ok: existsSync(paths.runner), required: true },
     { label: "State file", ok: existsSync(paths.state), required: true },
+    {
+      label: "Stream Deck plugin",
+      ok: Boolean(paths.streamDeckPlugin && existsSync(paths.streamDeckPlugin)),
+      required: false,
+    },
   ];
   if (process.argv.includes("--json")) {
     console.log(

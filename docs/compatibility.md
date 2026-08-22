@@ -13,6 +13,8 @@ Clawdeck integrates through public lifecycle hooks and the official Elgato Strea
 
 The CI matrix runs on Linux, Windows, and macOS. WSL uses the Windows `%LOCALAPPDATA%` path so the Linux hook runner and Windows Stream Deck application share one state file.
 
+`clawdeck doctor` resolves the corresponding native Stream Deck plugin directory, including the Windows roaming profile from WSL, and reports whether Clawdeck is installed there. Platform discovery is lazy and never runs in latency-sensitive lifecycle hook commands.
+
 ## Lifecycle contract
 
 Codex maps `SessionStart` and completed turns to ready, `UserPromptSubmit` and tool execution to working, `PermissionRequest` to permission, and `SessionEnd` to offline. Claude Code uses the equivalent lifecycle events and additionally maps `StopFailure` to error and relevant `Notification` matchers to ready or permission.

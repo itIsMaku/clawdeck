@@ -55,6 +55,8 @@ clawdeck install-plugin
 clawdeck uninstall
 ```
 
+`doctor` also detects the installed Stream Deck plugin on Windows, macOS, and Windows-through-WSL installations.
+
 Install only one agent integration when desired:
 
 ```bash

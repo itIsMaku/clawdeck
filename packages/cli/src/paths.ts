@@ -10,6 +10,7 @@ export interface ClawdeckPaths {
   config: string;
   codexHooks: string;
   claudeSettings: string;
+  streamDeckPlugin?: string;
 }
 
 function isWsl(): boolean {
@@ -22,12 +23,12 @@ function isWsl(): boolean {
   }
 }
 
-function windowsLocalAppDataFromWsl(): string | undefined {
+function windowsKnownFolderFromWsl(folder: "LocalApplicationData" | "ApplicationData"): string | undefined {
   if (!isWsl()) return undefined;
   try {
     const windowsPath = execFileSync(
       "powershell.exe",
-      ["-NoProfile", "-NonInteractive", "-Command", "[Environment]::GetFolderPath('LocalApplicationData')"],
+      ["-NoProfile", "-NonInteractive", "-Command", `[Environment]::GetFolderPath('${folder}')`],
       { encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] },
     ).trim();
     if (!windowsPath) return undefined;
@@ -37,7 +38,7 @@ function windowsLocalAppDataFromWsl(): string | undefined {
   }
 }
 
-export function resolvePaths(env: NodeJS.ProcessEnv = process.env): ClawdeckPaths {
+export function resolvePaths(env: NodeJS.ProcessEnv = process.env, discoverStreamDeck = false): ClawdeckPaths {
   const userHome = env.CLAWDECK_HOME || join(homedir(), ".clawdeck");
   let stateRoot = env.CLAWDECK_STATE_DIR;
 
@@ -48,8 +49,27 @@ export function resolvePaths(env: NodeJS.ProcessEnv = process.env): ClawdeckPath
     stateRoot = join(homedir(), "Library", "Application Support", "Clawdeck");
   }
   if (!stateRoot) {
-    const windowsRoot = windowsLocalAppDataFromWsl();
+    const windowsRoot = windowsKnownFolderFromWsl("LocalApplicationData");
     stateRoot = windowsRoot ? join(windowsRoot, "Clawdeck") : join(userHome, "run");
+  }
+
+  let streamDeckPlugin: string | undefined;
+  if (discoverStreamDeck && process.platform === "win32" && env.APPDATA) {
+    streamDeckPlugin = join(env.APPDATA, "Elgato", "StreamDeck", "Plugins", "com.volkm.clawdeck.sdPlugin");
+  } else if (discoverStreamDeck && process.platform === "darwin") {
+    streamDeckPlugin = join(
+      homedir(),
+      "Library",
+      "Application Support",
+      "com.elgato.StreamDeck",
+      "Plugins",
+      "com.volkm.clawdeck.sdPlugin",
+    );
+  } else if (discoverStreamDeck) {
+    const windowsRoaming = windowsKnownFolderFromWsl("ApplicationData");
+    if (windowsRoaming) {
+      streamDeckPlugin = join(windowsRoaming, "Elgato", "StreamDeck", "Plugins", "com.volkm.clawdeck.sdPlugin");
+    }
   }
 
   return {
@@ -59,6 +79,7 @@ export function resolvePaths(env: NodeJS.ProcessEnv = process.env): ClawdeckPath
     config: join(userHome, "config.json"),
     codexHooks: join(env.CODEX_HOME || join(homedir(), ".codex"), "hooks.json"),
     claudeSettings: join(env.CLAUDE_CONFIG_DIR || join(homedir(), ".claude"), "settings.json"),
+    streamDeckPlugin,
   };
 }
 

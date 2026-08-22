@@ -19,3 +19,4 @@ All notable changes follow [Keep a Changelog](https://keepachangelog.com/en/1.1.
 - Cross-platform Node-based build scripts and CI coverage on Linux, Windows, and macOS.
 - Interactive browser simulator backed by the production mosaic renderer.
 - Transactional hook installation with rollback of configs, runner, backups, and temporary files after late failures.
+- Stream Deck plugin installation detection on native Windows, macOS, and Windows-through-WSL diagnostics.
