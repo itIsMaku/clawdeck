@@ -17,6 +17,7 @@
   ],
   "scripts": {
     "assets": "node scripts/generate-assets.mjs",
+    "assets:marketplace": "tsx scripts/generate-marketplace-assets.ts",
     "build": "npm run build -w @clawdeck/protocol && npm run build -w @itismaku/clawdeck && npm run build -w @clawdeck/streamdeck-plugin",
     "check": "npm run check --workspaces --if-present",
     "lint": "biome check .",
