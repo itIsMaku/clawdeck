@@ -4,6 +4,7 @@
 
 - Type: Stream Deck plugin
 - Name: Clawdeck
+- Organization / author: itismaku
 - Price: Free
 - Product file: `../dist/com.itismaku.clawdeck.streamDeckPlugin`
 - App icon: `output/app-icon.png`
