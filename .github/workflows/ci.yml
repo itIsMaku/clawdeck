@@ -51,7 +51,7 @@ jobs:
       - run: npm run assets
       - run: npm run release:check
       - run: npm run validate -w @clawdeck/streamdeck-plugin
-      - run: mkdir -p dist && npm pack -w @volkm/clawdeck --pack-destination dist
+      - run: mkdir -p dist && npm pack -w @itismaku/clawdeck --pack-destination dist
       - run: npm run release:verify-artifacts
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
