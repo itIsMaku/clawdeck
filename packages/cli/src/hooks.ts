@@ -54,9 +54,7 @@ function rollback(snapshots: FileSnapshot[]): void {
 }
 
 function isOurs(command?: string): boolean {
-  return Boolean(
-    command?.includes("--source com.itismaku.clawdeck") || command?.includes("--source com.volkm.clawdeck"),
-  );
+  return Boolean(command?.includes("--source com.itismaku.clawdeck"));
 }
 
 function quote(value: string): string {
@@ -187,7 +185,7 @@ export function uninstallHooks(paths: ClawdeckPaths): void {
 export function hasClawdeckHook(path: string): boolean {
   try {
     const raw = JSON.stringify(readJson(path));
-    return raw.includes("--source com.itismaku.clawdeck") || raw.includes("--source com.volkm.clawdeck");
+    return raw.includes("--source com.itismaku.clawdeck");
   } catch {
     return false;
   }

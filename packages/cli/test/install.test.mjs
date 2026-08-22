@@ -31,14 +31,7 @@ test("install preserves existing hooks, emits state, and uninstalls only Clawdec
     type: "command",
     command: "node /some-other-tool/hook.cjs --agent codex --state ready",
   };
-  const legacy = {
-    type: "command",
-    command: "node /old-clawdeck/hook.cjs --source com.volkm.clawdeck --agent codex --state ready",
-  };
-  writeFileSync(
-    join(codex, "hooks.json"),
-    JSON.stringify({ hooks: { Stop: [{ hooks: [existing, similar, legacy] }] } }),
-  );
+  writeFileSync(join(codex, "hooks.json"), JSON.stringify({ hooks: { Stop: [{ hooks: [existing, similar] }] } }));
   writeFileSync(
     join(claude, "settings.json"),
     JSON.stringify({ theme: "dark", hooks: { Stop: [{ hooks: [existing] }] } }),
@@ -59,7 +52,6 @@ test("install preserves existing hooks, emits state, and uninstalls only Clawdec
     assert.match(JSON.stringify(codexInstalled), /hook\.cjs/);
     assert.match(JSON.stringify(codexInstalled), /keep-me/);
     assert.match(JSON.stringify(codexInstalled), /some-other-tool/);
-    assert.doesNotMatch(JSON.stringify(codexInstalled), /com\.volkm\.clawdeck/);
     assert.equal(claudeInstalled.theme, "dark");
     assert.match(JSON.stringify(claudeInstalled), /permission_prompt/);
 
