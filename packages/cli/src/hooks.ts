@@ -54,7 +54,7 @@ function rollback(snapshots: FileSnapshot[]): void {
 }
 
 function isOurs(command?: string): boolean {
-  return Boolean(command?.includes("--source com.volkm.clawdeck"));
+  return Boolean(command?.includes("--source com.itismaku.clawdeck"));
 }
 
 function quote(value: string): string {
@@ -64,7 +64,7 @@ function quote(value: string): string {
 
 function command(paths: ClawdeckPaths, agent: string, state: AgentState, watchCodex = false): string {
   const watch = watchCodex ? " --watch-codex" : "";
-  return `${quote(process.execPath)} ${quote(paths.runner)} --source com.volkm.clawdeck --file ${quote(paths.state)} --agent ${agent} --state ${state}${watch}`;
+  return `${quote(process.execPath)} ${quote(paths.runner)} --source com.itismaku.clawdeck --file ${quote(paths.state)} --agent ${agent} --state ${state}${watch}`;
 }
 
 function handler(paths: ClawdeckPaths, agent: string, state: AgentState, watchCodex = false): HookGroup {
@@ -185,7 +185,7 @@ export function uninstallHooks(paths: ClawdeckPaths): void {
 export function hasClawdeckHook(path: string): boolean {
   try {
     const raw = JSON.stringify(readJson(path));
-    return raw.includes("--source com.volkm.clawdeck");
+    return raw.includes("--source com.itismaku.clawdeck");
   } catch {
     return false;
   }

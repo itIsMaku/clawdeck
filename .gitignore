@@ -4,8 +4,8 @@ dist/
 *.streamDeckPlugin
 *.log
 .DS_Store
-packages/streamdeck-plugin/com.volkm.clawdeck.sdPlugin/bin/
-packages/streamdeck-plugin/com.volkm.clawdeck.sdPlugin/logs/
+packages/streamdeck-plugin/com.itismaku.clawdeck.sdPlugin/bin/
+packages/streamdeck-plugin/com.itismaku.clawdeck.sdPlugin/logs/
 packages/cli/README.md
 packages/cli/LICENSE
 packages/cli/CHANGELOG.md

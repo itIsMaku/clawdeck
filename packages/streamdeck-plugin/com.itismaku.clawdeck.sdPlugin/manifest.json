@@ -1,6 +1,6 @@
 {
   "$schema": "https://schemas.elgato.com/streamdeck/plugins/manifest.json",
-  "UUID": "com.volkm.clawdeck",
+  "UUID": "com.itismaku.clawdeck",
   "Name": "Clawdeck",
   "Version": "0.1.4.0",
   "Author": "Clawdeck",
@@ -28,7 +28,7 @@
   },
   "Actions": [
     {
-      "UUID": "com.volkm.clawdeck.status-tile",
+      "UUID": "com.itismaku.clawdeck.status-tile",
       "Name": "Agent Status Tile",
       "Tooltip": "Displays the current Codex or Claude Code status.",
       "Icon": "imgs/action",

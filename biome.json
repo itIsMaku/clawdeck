@@ -6,7 +6,7 @@
     "useIgnoreFile": true
   },
   "files": {
-    "includes": ["**", "!packages/streamdeck-plugin/com.volkm.clawdeck.sdPlugin/bin"]
+    "includes": ["**", "!packages/streamdeck-plugin/com.itismaku.clawdeck.sdPlugin/bin"]
   },
   "formatter": {
     "enabled": true,

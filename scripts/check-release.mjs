@@ -10,7 +10,7 @@ const packages = new Map([
   ["protocol", json("packages/protocol/package.json").version],
   ["plugin package", json("packages/streamdeck-plugin/package.json").version],
 ]);
-const manifest = json("packages/streamdeck-plugin/com.volkm.clawdeck.sdPlugin/manifest.json");
+const manifest = json("packages/streamdeck-plugin/com.itismaku.clawdeck.sdPlugin/manifest.json");
 
 for (const [name, version] of packages) {
   if (version !== rootPackage.version)

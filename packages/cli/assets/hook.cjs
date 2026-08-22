@@ -27,7 +27,7 @@ const sleep = (milliseconds) => new Promise((resolve) => setTimeout(resolve, mil
 
 async function acquireLock(file) {
   const lock = `${file}.lock`;
-  for (let attempt = 0; attempt < 100; attempt += 1) {
+  for (let attempt = 0; attempt < 250; attempt += 1) {
     try {
       const descriptor = fs.openSync(lock, "wx");
       fs.writeFileSync(descriptor, `${process.pid}\n`);

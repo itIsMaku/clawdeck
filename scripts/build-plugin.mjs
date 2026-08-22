@@ -5,7 +5,7 @@ import { build } from "esbuild";
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
 const packageRoot = join(root, "packages", "streamdeck-plugin");
-const output = join(packageRoot, "com.volkm.clawdeck.sdPlugin", "bin", "plugin.js");
+const output = join(packageRoot, "com.itismaku.clawdeck.sdPlugin", "bin", "plugin.js");
 
 await build({
   entryPoints: [join(packageRoot, "src", "plugin.ts")],

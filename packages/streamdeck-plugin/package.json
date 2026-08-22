@@ -7,9 +7,9 @@
     "build": "node ../../scripts/build-plugin.mjs",
     "check": "tsc -p tsconfig.json --noEmit",
     "test": "tsx --test test/*.test.ts",
-    "validate": "streamdeck validate com.volkm.clawdeck.sdPlugin",
-    "pack": "npm run build && streamdeck pack com.volkm.clawdeck.sdPlugin --output ../../dist --force --no-update-check && biome format --write com.volkm.clawdeck.sdPlugin/manifest.json",
-    "link": "npm run build && streamdeck link com.volkm.clawdeck.sdPlugin",
+    "validate": "streamdeck validate com.itismaku.clawdeck.sdPlugin",
+    "pack": "npm run build && streamdeck pack com.itismaku.clawdeck.sdPlugin --output ../../dist --force --no-update-check && biome format --write com.itismaku.clawdeck.sdPlugin/manifest.json",
+    "link": "npm run build && streamdeck link com.itismaku.clawdeck.sdPlugin",
     "clean": "node ../../scripts/clean.mjs plugin"
   },
   "dependencies": {
