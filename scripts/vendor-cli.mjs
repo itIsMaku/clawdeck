@@ -4,9 +4,10 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
-const npm = process.platform === "win32" ? "npm.cmd" : "npm";
+const npmCli = process.env.npm_execpath;
+if (!npmCli) throw new Error("npm_execpath is unavailable; run this script through npm");
 
-execFileSync(npm, ["run", "pack", "-w", "@clawdeck/streamdeck-plugin"], {
+execFileSync(process.execPath, [npmCli, "run", "pack", "-w", "@clawdeck/streamdeck-plugin"], {
   cwd: root,
   stdio: "inherit",
 });
