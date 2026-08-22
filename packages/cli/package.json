@@ -1,6 +1,6 @@
 {
   "name": "@volkm/clawdeck",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Connect Codex and Claude Code lifecycle events to an Elgato Stream Deck",
   "author": "volkm",
   "repository": {
@@ -41,7 +41,7 @@
     "clean": "node ../../scripts/clean.mjs cli"
   },
   "devDependencies": {
-    "@clawdeck/protocol": "0.1.2",
+    "@clawdeck/protocol": "0.1.3",
     "esbuild": "^0.25.9",
     "typescript": "^7.0.2"
   },

@@ -34,3 +34,14 @@ test("individual tile mode remains available", () => {
   assert.match(svg, /READY/);
   assert.match(svg, /viewBox="0 0 144 144"/);
 });
+
+test("two-row mosaics keep the agent label inside the physical canvas", () => {
+  const mini = decode(renderStatus(snapshot, { mode: "mosaic", columns: 3, rows: 2, column: 1, row: 1 }));
+  assert.match(mini, /<text x="216" y="236"[^>]*>WORKING<\/text>/);
+  assert.match(mini, /<text x="216" y="268"[^>]*>CODEX<\/text>/);
+  assert.doesNotMatch(mini, /y="290"/);
+
+  const standard = decode(renderStatus(snapshot, { mode: "mosaic", columns: 5, rows: 3 }));
+  assert.match(standard, /<text x="360" y="322"[^>]*>WORKING<\/text>/);
+  assert.match(standard, /<text x="360" y="362"[^>]*>CODEX<\/text>/);
+});

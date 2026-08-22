@@ -4,6 +4,12 @@ All notable changes follow [Keep a Changelog](https://keepachangelog.com/en/1.1.
 
 ## [Unreleased]
 
+## [0.1.3] - 2026-08-22
+
+### Fixed
+
+- Keep the secondary agent label inside the safe area on compact two-row Stream Deck canvases.
+
 ## [0.1.2] - 2026-08-22
 
 ### Fixed

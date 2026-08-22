@@ -82,6 +82,8 @@ export function renderStatus(snapshot: ClawdeckSnapshot, options: RenderOptions 
   const cy = height / 2;
   const phase = Math.max(0, Math.min(1, options.phase || 0));
   const labelSize = Math.max(34, Math.min(58, width / 10));
+  const labelY = Math.min(cy + 106, height - 52);
+  const agentY = Math.min(cy + 146, height - 20);
   const agent = escapeXml((snapshot.agent || "clawdeck").toUpperCase());
   const scene = options.scene || "signal";
 
@@ -95,8 +97,8 @@ export function renderStatus(snapshot: ClawdeckSnapshot, options: RenderOptions 
     <g filter="url(#shadow)">
       <circle cx="${cx}" cy="${cy - 34}" r="${Math.min(92, height * 0.22)}" fill="${style.accent}" opacity=".92"/>
       <text x="${cx}" y="${cy + 4}" text-anchor="middle" font-family="Arial,sans-serif" font-size="${Math.min(120, height * 0.3)}" font-weight="800" fill="${style.foreground}">${style.symbol}</text>
-      <text x="${cx}" y="${cy + 106}" text-anchor="middle" font-family="Arial,sans-serif" font-size="${labelSize}" font-weight="800" letter-spacing="4" fill="${style.foreground}">${style.label}</text>
-      <text x="${cx}" y="${cy + 146}" text-anchor="middle" font-family="Arial,sans-serif" font-size="22" letter-spacing="6" fill="${style.foreground}" opacity=".76">${agent}</text>
+      <text x="${cx}" y="${labelY}" text-anchor="middle" font-family="Arial,sans-serif" font-size="${labelSize}" font-weight="800" letter-spacing="4" fill="${style.foreground}">${style.label}</text>
+      <text x="${cx}" y="${agentY}" text-anchor="middle" font-family="Arial,sans-serif" font-size="22" letter-spacing="6" fill="${style.foreground}" opacity=".76">${agent}</text>
     </g>
   </svg>`);
 }
