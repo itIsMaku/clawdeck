@@ -1,0 +1,44 @@
+{
+  "$schema": "https://schemas.elgato.com/streamdeck/plugins/manifest.json",
+  "UUID": "com.volkm.clawdeck",
+  "Name": "Clawdeck",
+  "Version": "0.1.0.0",
+  "Author": "Clawdeck",
+  "Description": "Shows when Codex and Claude Code are working or waiting for you.",
+  "Category": "Clawdeck",
+  "CategoryIcon": "imgs/category",
+  "Icon": "imgs/plugin",
+  "CodePath": "bin/plugin.js",
+  "SDKVersion": 3,
+  "Nodejs": {
+    "Version": "24"
+  },
+  "OS": [
+    {
+      "Platform": "windows",
+      "MinimumVersion": "10"
+    },
+    {
+      "Platform": "mac",
+      "MinimumVersion": "13"
+    }
+  ],
+  "Software": {
+    "MinimumVersion": "7.1"
+  },
+  "Actions": [
+    {
+      "UUID": "com.volkm.clawdeck.status-tile",
+      "Name": "Agent Status Tile",
+      "Tooltip": "Displays the current Codex or Claude Code status.",
+      "Icon": "imgs/action",
+      "PropertyInspectorPath": "ui/property-inspector.html",
+      "Controllers": ["Keypad"],
+      "States": [
+        {
+          "Image": "imgs/action"
+        }
+      ]
+    }
+  ]
+}

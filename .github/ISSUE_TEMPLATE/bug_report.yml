@@ -1,0 +1,43 @@
+name: Bug report
+description: Report a reproducible Clawdeck problem
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for helping improve Clawdeck. Please run `clawdeck doctor` first.
+  - type: textarea
+    id: problem
+    attributes:
+      label: What happened?
+      description: Include what you expected and what actually happened.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Reproduction
+      description: Provide the smallest sequence of steps that reproduces the issue.
+    validations:
+      required: true
+  - type: textarea
+    id: doctor
+    attributes:
+      label: Clawdeck doctor output
+      render: text
+    validations:
+      required: true
+  - type: input
+    id: streamdeck
+    attributes:
+      label: Stream Deck model and software version
+    validations:
+      required: true
+  - type: dropdown
+    id: host
+    attributes:
+      label: Agent environment
+      multiple: true
+      options: [Codex CLI, Claude Code, WSL, Windows, macOS, Linux]
+    validations:
+      required: true

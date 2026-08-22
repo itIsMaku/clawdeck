@@ -1,0 +1,15 @@
+node_modules/
+dist/
+*.tgz
+*.streamDeckPlugin
+*.log
+.DS_Store
+packages/streamdeck-plugin/com.volkm.clawdeck.sdPlugin/bin/
+packages/streamdeck-plugin/com.volkm.clawdeck.sdPlugin/logs/
+packages/cli/README.md
+packages/cli/LICENSE
+packages/cli/CHANGELOG.md
+packages/cli/CODE_OF_CONDUCT.md
+packages/cli/CONTRIBUTING.md
+packages/cli/SECURITY.md
+packages/cli/docs/

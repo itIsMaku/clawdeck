@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 500" role="img" aria-labelledby="title desc">
+  <title id="title">Clawdeck working state across a fifteen-key Stream Deck</title>
+  <desc id="desc">A dark device with fifteen red keys forming one continuous animated status scene.</desc>
+  <defs>
+    <radialGradient id="scene" cx="50%" cy="42%" r="75%"><stop stop-color="#ef4444"/><stop offset=".55" stop-color="#7f1017"/><stop offset="1" stop-color="#16090d"/></radialGradient>
+    <filter id="shadow"><feDropShadow dx="0" dy="18" stdDeviation="18" flood-opacity=".45"/></filter>
+    <clipPath id="keys"><rect x="54" y="54" width="712" height="392" rx="26"/></clipPath>
+  </defs>
+  <rect width="820" height="500" rx="52" fill="#080b12"/>
+  <g filter="url(#shadow)">
+    <rect x="30" y="30" width="760" height="440" rx="42" fill="#1f2937"/>
+    <g clip-path="url(#keys)">
+      <rect x="54" y="54" width="712" height="392" fill="url(#scene)"/>
+      <circle cx="410" cy="230" r="160" fill="#ef4444" opacity=".18"/>
+      <circle cx="410" cy="230" r="118" fill="#ef4444" opacity=".2"/>
+      <circle cx="410" cy="205" r="72" fill="#ef4444" opacity=".92"/>
+      <text x="410" y="239" text-anchor="middle" font-family="Arial,sans-serif" font-size="102" font-weight="800" fill="#fff">●</text>
+      <text x="410" y="334" text-anchor="middle" font-family="Arial,sans-serif" font-size="48" font-weight="800" letter-spacing="8" fill="#fff">WORKING</text>
+      <text x="410" y="373" text-anchor="middle" font-family="Arial,sans-serif" font-size="19" letter-spacing="7" fill="#fff" opacity=".72">CODEX</text>
+    </g>
+    <g fill="none" stroke="#111827" stroke-width="14">
+      <path d="M196 54v392M339 54v392M481 54v392M624 54v392"/>
+      <path d="M54 185h712M54 316h712"/>
+    </g>
+    <g fill="none" stroke="#374151" stroke-width="3">
+      <rect x="54" y="54" width="712" height="392" rx="26"/>
+    </g>
+  </g>
+</svg>

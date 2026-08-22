@@ -1,0 +1,25 @@
+{
+  "name": "@clawdeck/streamdeck-plugin",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "esbuild src/plugin.ts --bundle --platform=node --format=esm --outfile=com.volkm.clawdeck.sdPlugin/bin/plugin.js",
+    "check": "tsc -p tsconfig.json --noEmit",
+    "test": "tsx --test test/*.test.ts",
+    "validate": "streamdeck validate com.volkm.clawdeck.sdPlugin",
+    "pack": "npm run build && streamdeck pack com.volkm.clawdeck.sdPlugin --output ../../dist --force --no-update-check && biome format --write com.volkm.clawdeck.sdPlugin/manifest.json",
+    "link": "npm run build && streamdeck link com.volkm.clawdeck.sdPlugin",
+    "clean": "node ../../scripts/clean.mjs plugin"
+  },
+  "dependencies": {
+    "@clawdeck/protocol": "0.1.0",
+    "@elgato/streamdeck": "^2.1.2"
+  },
+  "devDependencies": {
+    "@elgato/cli": "^1.9.0",
+    "esbuild": "^0.25.9",
+    "tsx": "^4.23.12",
+    "typescript": "^7.0.2"
+  }
+}

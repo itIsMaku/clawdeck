@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Clawdeck settings</title>
+  <style>
+    :root { color-scheme: dark; font: 13px system-ui, sans-serif; }
+    body { margin: 0; padding: 14px; color: #eee; background: #2d2d2d; }
+    label { display: grid; grid-template-columns: 92px 1fr; align-items: center; gap: 10px; margin: 12px 0; }
+    select { width: 100%; padding: 6px 8px; color: #eee; background: #3d3d3d; border: 1px solid #555; border-radius: 4px; }
+    p { color: #bbb; line-height: 1.45; }
+    code { color: #8ee6a8; }
+  </style>
+</head>
+<body>
+  <label>Layout
+    <select id="mode"><option value="mosaic">Whole-deck mosaic</option><option value="tile">Individual tile</option></select>
+  </label>
+  <label>Agent
+    <select id="agent"><option value="all">Most important</option><option value="codex">Codex only</option><option value="claude">Claude only</option></select>
+  </label>
+  <label>Scene
+    <select id="scene"><option value="signal">Signal</option><option value="orbit">Orbit</option><option value="minimal">Minimal</option></select>
+  </label>
+  <p>For a continuous image, place this action on every key and choose <code>Whole-deck mosaic</code>. Each key renders its own slice automatically.</p>
+  <script>
+    let socket, context;
+    let settings = { mode: "mosaic", agent: "all", scene: "signal" };
+    const controls = ["mode", "agent", "scene"];
+
+    window.connectElgatoStreamDeckSocket = (port, uuid, registerEvent, _info, actionInfo) => {
+      context = uuid;
+      const action = JSON.parse(actionInfo || "{}");
+      settings = { ...settings, ...(action.payload?.settings || {}) };
+      syncControls();
+      socket = new WebSocket(`ws://127.0.0.1:${port}`);
+      socket.addEventListener("open", () => socket.send(JSON.stringify({ event: registerEvent, uuid })));
+      socket.addEventListener("message", event => {
+        const message = JSON.parse(event.data);
+        if (message.event === "didReceiveSettings") {
+          settings = { ...settings, ...(message.payload?.settings || {}) };
+          syncControls();
+        }
+      });
+    };
+
+    function syncControls() {
+      for (const id of controls) document.getElementById(id).value = settings[id];
+    }
+
+    for (const id of controls) document.getElementById(id).addEventListener("change", event => {
+      settings = { ...settings, [id]: event.target.value };
+      if (socket?.readyState === WebSocket.OPEN) socket.send(JSON.stringify({ event: "setSettings", context, payload: settings }));
+    });
+  </script>
+</body>
+</html>

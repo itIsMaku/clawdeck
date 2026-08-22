@@ -1,0 +1,55 @@
+{
+  "name": "@volkm/clawdeck",
+  "version": "0.1.0",
+  "description": "Connect Codex and Claude Code lifecycle events to an Elgato Stream Deck",
+  "author": "volkm",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/volkm/clawdeck.git"
+  },
+  "homepage": "https://github.com/volkm/clawdeck#readme",
+  "bugs": {
+    "url": "https://github.com/volkm/clawdeck/issues"
+  },
+  "keywords": [
+    "stream-deck",
+    "codex",
+    "claude-code",
+    "developer-tools",
+    "notifications",
+    "automation"
+  ],
+  "type": "module",
+  "bin": {
+    "clawdeck": "dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "vendor",
+    "docs",
+    "CHANGELOG.md",
+    "CODE_OF_CONDUCT.md",
+    "CONTRIBUTING.md",
+    "SECURITY.md"
+  ],
+  "scripts": {
+    "build": "node ../../scripts/build-cli.mjs",
+    "vendor": "node ../../scripts/vendor-cli.mjs",
+    "prepack": "node ../../scripts/prepare-cli.mjs && npm run vendor && npm run build",
+    "check": "tsc -p tsconfig.json --noEmit",
+    "test": "node --test test/*.test.mjs",
+    "clean": "node ../../scripts/clean.mjs cli"
+  },
+  "devDependencies": {
+    "@clawdeck/protocol": "0.1.0",
+    "esbuild": "^0.25.9",
+    "typescript": "^7.0.2"
+  },
+  "engines": {
+    "node": ">=20.5.1"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "MIT"
+}

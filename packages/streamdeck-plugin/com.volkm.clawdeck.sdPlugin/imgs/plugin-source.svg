@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <title>Clawdeck</title>
+  <rect width="512" height="512" rx="92" fill="#111827"/>
+  <rect x="90" y="90" width="140" height="140" rx="28" fill="#dc2626"/>
+  <rect x="282" y="90" width="140" height="140" rx="28" fill="#f59e0b"/>
+  <rect x="90" y="282" width="140" height="140" rx="28" fill="#16a34a"/>
+  <rect x="282" y="282" width="140" height="140" rx="28" fill="#2563eb"/>
+  <path d="m130 160 22 22 40-48M323 160h58M352 131v58M128 352h64M314 352h76" fill="none" stroke="#fff" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

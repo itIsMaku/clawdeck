@@ -1,0 +1,43 @@
+{
+  "name": "clawdeck-monorepo",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Agent status lights for Elgato Stream Deck",
+  "author": "volkm",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/volkm/clawdeck.git"
+  },
+  "homepage": "https://github.com/volkm/clawdeck#readme",
+  "bugs": {
+    "url": "https://github.com/volkm/clawdeck/issues"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "assets": "node scripts/generate-assets.mjs",
+    "build": "npm run build -w @clawdeck/protocol && npm run build -w @volkm/clawdeck && npm run build -w @clawdeck/streamdeck-plugin",
+    "check": "npm run check --workspaces --if-present",
+    "lint": "biome check .",
+    "format": "biome format --write .",
+    "test": "npm run test --workspaces --if-present && tsx --test scripts/simulator.test.ts",
+    "simulator": "tsx scripts/simulator.ts",
+    "smoke:codex": "node scripts/smoke-codex.mjs",
+    "pack:plugin": "npm run pack -w @clawdeck/streamdeck-plugin",
+    "release:check": "node scripts/check-release.mjs",
+    "release:verify-artifacts": "node scripts/verify-artifacts.mjs",
+    "clean": "npm run clean --workspaces --if-present"
+  },
+  "engines": {
+    "node": ">=20.9.0"
+  },
+  "packageManager": "npm@12.0.2",
+  "license": "MIT",
+  "devDependencies": {
+    "@biomejs/biome": "^2.5.10",
+    "@types/node": "^24.3.0",
+    "sharp": "^0.35.3",
+    "tsx": "^4.23.12"
+  }
+}
