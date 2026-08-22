@@ -19,6 +19,7 @@ jobs:
           node-version: 24
           cache: npm
           registry-url: https://registry.npmjs.org
+      - run: npm install --global npm@12.0.2
       - run: npm ci
       - run: npm run assets
       - run: npm run release:check
@@ -27,9 +28,7 @@ jobs:
       - run: npm test
       - run: mkdir -p dist && npm pack -w @itismaku/clawdeck --pack-destination dist
       - run: npm run release:verify-artifacts
-      - run: npm publish -w @itismaku/clawdeck --provenance
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - run: npm publish -w @itismaku/clawdeck --access public --provenance
       - name: Create GitHub release
         run: gh release create "$GITHUB_REF_NAME" dist/*.tgz dist/*.streamDeckPlugin --generate-notes --verify-tag
         env:
