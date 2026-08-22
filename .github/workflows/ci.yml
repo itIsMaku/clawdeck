@@ -50,7 +50,7 @@ jobs:
       - run: npm ci
       - run: npm run assets
       - run: npm run release:check
-      - run: npm run build -w @clawdeck/streamdeck-plugin
+      - run: npm run build
       - run: npm run validate -w @clawdeck/streamdeck-plugin
       - run: mkdir -p dist && npm pack -w @itismaku/clawdeck --pack-destination dist
       - run: npm run release:verify-artifacts
