@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@clawdeck/protocol": "0.1.4",
-    "@elgato/streamdeck": "^2.1.2"
+    "@elgato/streamdeck": "^3.0.2"
   },
   "devDependencies": {
     "@elgato/cli": "^1.9.0",
